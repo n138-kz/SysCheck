@@ -42,56 +42,55 @@ rem 作業フォルダが無い場合
 if not exist "C:\_icts" mkdir "C:\_icts"
 
 
+echo アカウントポリシー取得中
+net accounts > "C:\_icts\config accounts policy@%COMPUTERNAME%.txt"
+
+echo Bootテーブル取得中
+bcdedit > "C:\_icts\config Windows_Boot_Loader_Boot_Manager@%COMPUTERNAME%.txt"
+
+echo ユーザフォルダ一覧取得中
+dir /s %USERPROFILE%  > "C:\_icts\User Dirctory List@%COMPUTERNAME%.txt"
 
 echo チェックツール情報取得中
-echo %~nx0 > "C:\_icts\toolversion@%COMPUTERNAME%.txt"
+echo %~nx0 > "C:\_icts\Tool Version@%COMPUTERNAME%.txt"
 
 echo システム情報取得中
-systeminfo > "C:\_icts\systeminfo@%COMPUTERNAME%.txt"
+systeminfo > "C:\_icts\show system info@%COMPUTERNAME%.txt"
 
 echo ネットワーク情報取得中
 ipconfig /all > "C:\_icts\ipconfig _all@%COMPUTERNAME%.txt"
 
 echo ユーザ情報取得中
-net user %USERNAME% > "C:\_icts\net user {USERNAME}@%COMPUTERNAME%.txt"
+net user %USERNAME% > "C:\_icts\show userinfo@%COMPUTERNAME%.txt"
 
 echo ユーザ一覧取得中
-net user > "C:\_icts\net user@%COMPUTERNAME%.txt"
-
-echo ユーザフォルダ一覧取得中
-dir /s %USERPROFILE%  > "C:\_icts\dir _s {USERPROFILE}@%COMPUTERNAME%.txt"
+net user > "C:\_icts\config user list@%COMPUTERNAME%.txt"
 
 echo 構成情報取得中
-net config workstation  > "C:\_icts\net config workstation@%COMPUTERNAME%.txt"
+net config workstation  > "C:\_icts\config workstation@%COMPUTERNAME%.txt"
 
 echo 共有フォルダ情報取得中
-net share > "C:\_icts\net share@%COMPUTERNAME%.txt"
+net share > "C:\_icts\config share folder@%COMPUTERNAME%.txt"
 
 echo セッション情報取得中
-net session > "C:\_icts\net session@%COMPUTERNAME%.txt"
-
-echo アカウントポリシー取得中
-net accounts > "C:\_icts\Accounts Policy@%COMPUTERNAME%.txt"
+net session > "C:\_icts\show server session@%COMPUTERNAME%.txt"
 
 echo インストールプログラム(パターン:A)取得中
-wmic product get name,version /format:csv > "C:\_icts\wmic product get name,version _format_csv@%COMPUTERNAME%.csv"
+wmic product get name,version /format:csv > "C:\_icts\Installed Apps _csv@%COMPUTERNAME%.csv"
 
 echo インストールプログラム(パターン:E)取得中
-wmic product get name > "C:\_icts\wmic product get name,version@%COMPUTERNAME%.txt"
-wmic product get version >> "C:\_icts\wmic product get name,version@%COMPUTERNAME%.txt"
+wmic product get name > "C:\_icts\Installed Apps _plain@%COMPUTERNAME%.txt"
+wmic product get version >> "C:\_icts\Installed Apps _plain@%COMPUTERNAME%.txt"
 
 echo システムイベントログ取得中
-wevtutil epl System "C:\_icts\System Event Log@%COMPUTERNAME%.evtx"
+wevtutil epl System "C:\_icts\log systemlog@%COMPUTERNAME%.evtx"
 
 echo TPM構成情報取得中
-reg query HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\FVE >> "C:\_icts\TPM Configuration@%COMPUTERNAME%.txt"
+reg query HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\FVE >> "C:\_icts\config TPM@%COMPUTERNAME%.txt"
 
 echo スクリーンロック情報取得中
-reg query "HKEY_CURRENT_USER\Control Panel\Desktop" /V ScreenSaveTimeOut >> "C:\_icts\ScreenLock with Timeout@%COMPUTERNAME%.txt"
-reg query "HKEY_CURRENT_USER\Control Panel\Desktop" /V ScreenSaverIsSecure >> "C:\_icts\ScreenLock with Timeout@%COMPUTERNAME%.txt"
-
-echo Bootテーブル取得中
-bcdedit > "C:\_icts\bcdedit@%COMPUTERNAME%.txt"
+reg query "HKEY_CURRENT_USER\Control Panel\Desktop" /V ScreenSaveTimeOut >> "C:\_icts\config ScreenLock with Timeout@%COMPUTERNAME%.txt"
+reg query "HKEY_CURRENT_USER\Control Panel\Desktop" /V ScreenSaverIsSecure >> "C:\_icts\config ScreenLock with Timeout@%COMPUTERNAME%.txt"
 
 
 
