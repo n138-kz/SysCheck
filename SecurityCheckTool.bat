@@ -21,9 +21,9 @@ exit
 
 
 
-if not exist "C:\_icts" goto chkWorkDir_End
+if not exist "C:\_%USERNAME%" goto chkWorkDir_End
 rem 作業フォルダが既にある場合
-echo 作業フォルダ(C:\_icts)を見つけました。作業フォルダを削除しても良いですか？
+echo 作業フォルダ(C:\_%USERNAME%)を見つけました。作業フォルダを削除しても良いですか？
 set /P sakujokakunin="Y/n > "
 set sakujokakunin=%sakujokakunin:y=Y%
 if "%sakujokakunin%" == "Y" goto exeRmdir
@@ -32,14 +32,14 @@ echo Please try again for delete the directory
 timeout -1
 exit
 :exeRmdir
-rmdir /S /Q "C:\_icts"
+rmdir /S /Q "C:\_%USERNAME%"
 
 rem 作業フォルダが無い場合
 :chkWorkDir_End
 
 
 
-if not exist "C:\_icts" mkdir "C:\_icts"
+if not exist "C:\_%USERNAME%" mkdir "C:\_%USERNAME%"
 
 
 echo アカウントポリシー取得中
