@@ -75,12 +75,8 @@ net share > "C:\_icts\config share folder@%COMPUTERNAME%.txt"
 echo セッション情報取得中
 net session > "C:\_icts\show server session@%COMPUTERNAME%.txt"
 
-echo インストールプログラム(パターン:A)取得中
+echo インストールプログラム取得中
 wmic product get name,version /format:csv > "C:\_icts\Installed Apps _csv@%COMPUTERNAME%.csv"
-
-echo インストールプログラム(パターン:E)取得中
-wmic product get name > "C:\_icts\Installed Apps _plain@%COMPUTERNAME%.txt"
-wmic product get version >> "C:\_icts\Installed Apps _plain@%COMPUTERNAME%.txt"
 
 echo システムイベントログ取得中
 wevtutil epl System "C:\_icts\log systemlog@%COMPUTERNAME%.evtx"
